@@ -5,9 +5,11 @@ var money = 0;
 var trees = 1;
 var land = 5;
 var slaves = 0;
+var Big_Bois = 0;
 var tree_price = 1;
 var land_price = 10;
 var slave_price = 5;
+var Big_Bois_price = 1000;
 
 function crouton_click() {
 	money += trees;
@@ -26,12 +28,13 @@ window.onload = function() {
 	document.getElementById("moretrees").addEventListener("click", buy_trees);
 	document.getElementById("moreland").addEventListener("click", buy_land);
 	document.getElementById("moreslaves").addEventListener("click", buy_slaves);
+	document.getElementById("moreBig_Bois").addEventListener("click", buy_Big_Bois);
 };
 
 // runs every second
 function bonus() {
 	//alert ("yaythebonusworked");
-	money += slaves*trees;
+	money += Big_Bois*slaves*trees;
 	update_values();
 }
 
@@ -73,13 +76,27 @@ function buy_slaves() {
 	update_values();
 }
 
+function buy_Big_Bois() {
+	if( money >= Big_Bois_price) {
+		money -= Big_Bois_price;
+		Big_Bois++;
+		Big_Bois_price= Big_Bois_price*10
+	}
+	else if( money < Big_Bois_price ) {
+		alert ("You do not have enough CashMoney");
+	}
+	update_values();
+}
+
 function update_values() {
 	document.getElementById("score").value = "$" + money.toFixed(2);
 	document.getElementById("trees").value = trees;
 	document.getElementById("land").value = land;
 	document.getElementById("slaves").value = slaves;
+	document.getElementById("Big_Bois").value = Big_Bois;
 	document.getElementById("moretrees").innerHTML = "Buy More Trees $" + tree_price;
 	document.getElementById("moreland").innerHTML = "Buy More Land $" + land_price;
 	document.getElementById("moreslaves").innerHTML = "Buy More Slaves $" + slave_price;
+	document.getElementById("moreBig_Bois").innerHTML = "Buy More Big_Bois $" + Big_Bois_price;
 
 }
